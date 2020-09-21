@@ -26,4 +26,10 @@ TF neural net (97.74%)
   - Modify the yTraining data to support the expected input
 
 Relevant outputs:
-  
+
+<table>
+  <tr>
+      <td><img src="./customNeuralOut.png" width=400 height=600></td>
+      <td><img src="./tensorflowNetOut.png" width=400 height=600></td>
+  </tr>
+</table>
