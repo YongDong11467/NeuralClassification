@@ -28,8 +28,8 @@ IMAGE_SIZE = 784
 
 # Use these to set the algorithm to use.
 #ALGORITHM = "guesser"
-ALGORITHM = "custom_net"
-#ALGORITHM = "tf_net"
+#ALGORITHM = "custom_net"
+ALGORITHM = "tf_net"
 
 
 
@@ -85,10 +85,7 @@ class NeuralNetwork_2Layer():
     # Predict.
     def predict(self, xVals):
         _, layer2 = self.__forward(xVals)
-        modout = np.zeros(layer2.shape)
-        for i in range(0, layer2.shape[0]):
-            modout[i][layer2[i].argmax(axis=0)] = 1
-        return modout
+        return layer2
 
 
 
@@ -154,8 +151,10 @@ def trainModel(data):
         model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
         # process y
         (xTrain2, yTrain2), (xtest2, ytest2) = tf.keras.datasets.mnist.load_data() # this line here just for testing
-
-        model.fit(xTrain, yTrain, epochs=5)
+        yTrainmod = np.zeros(yTrain.shape[0])
+        for i in range(0, yTrainmod.size):
+            yTrainmod[i] = yTrain[i].argmax(axis=0)
+        model.fit(xTrain, yTrainmod, epochs=5)
         return model
     else:
         raise ValueError("Algorithm not recognized.")
@@ -172,7 +171,8 @@ def runModel(data, model):
     elif ALGORITHM == "tf_net":
         print("Testing TF_NN.")
         #TODO: Write code to run your keras neural net.
-        return model.evaluate(data)
+        # return model.evaluate(data)
+        return model.predict(data)
     else:
         raise ValueError("Algorithm not recognized.")
 
@@ -201,6 +201,13 @@ def evalResults(data, preds):   #TODO: Add F1 score confusion matrix here.
     print()
 
 
+def modPreds(preds):
+    modout = np.zeros(preds.shape)
+    for i in range(0, preds.shape[0]):
+        modout[i][preds[i].argmax(axis=0)] = 1
+    return modout
+
+
 
 #=========================<Main>==============================preds[i]==================
 
@@ -209,7 +216,7 @@ def main():
     data = preprocessData(raw)
     model = trainModel(data[0])
     preds = runModel(data[1][0], model)
-    evalResults(data[1], preds)
+    evalResults(data[1], modPreds(preds))
 
     #Quiz
     # (xTrain, yTrain), (xTest, yTest) = tf.keras.datasets.mnist.load_data()
