@@ -1,12 +1,15 @@
 # NeuralClassification
 
-Yong Kai Dong
-Purdue Email
-https://github.com/YongDong11467/NeuralClassification
+ Yong Kai Dong
+ 
+ Purdue Email
+ 
+ https://github.com/YongDong11467/NeuralClassification
+ 
 Resources: 
-  https://www.geeksforgeeks.org
-  https://scikit-learn.org/stable/modules/classes.html
-  https://www.tensorflow.org/api_docs/python/tf/keras
+  - https://www.geeksforgeeks.org
+  - https://scikit-learn.org/stable/modules/classes.html
+  - https://www.tensorflow.org/api_docs/python/tf/keras
 
 Completed:
   - Custom neural net
